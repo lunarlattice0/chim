@@ -129,6 +129,7 @@ std::expected<std::string, LLMFailure> LLM::prompt(const std::string input) {
 }
 
 LLM::LLM() {
+    #ifndef SHUT_UP_LLAMA
     llama_log_set([](enum ggml_log_level level, const char * text, void *) {
         switch (level) {
             case GGML_LOG_LEVEL_DEBUG:
@@ -145,9 +146,9 @@ LLM::LLM() {
                 break;
         }
     }, nullptr);
+    #endif
 
     // create a FILE * from .rodata embed
-    std::cout << "Requesting to run a model of " << model_size << std::endl;
     fp = fmemopen((void*)&mem_model[0], model_size, "r");
     if (fp == NULL) {
         GGML_ABORT("Couldn't create FP from model in memory.");

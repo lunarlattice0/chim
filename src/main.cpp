@@ -4,6 +4,7 @@
 #include <libtcc.h>
 
 #define SAFETY_CHECK 1
+#define SHUT_UP_LLAMA 1
 
 int main(int argc, char* argv[]) {
     std::string llm_prompt;
@@ -16,7 +17,6 @@ int main(int argc, char* argv[]) {
     }
 
     // start up llama.cpp
-    std::cout << "starting llama.cpp..." << std::endl;
     std::unique_ptr<LLM> llm = std::make_unique<LLM>();
 
     // Generate based on prompt
@@ -40,8 +40,6 @@ int main(int argc, char* argv[]) {
     std::cout << "!!!This is your one and only chance to check the C code that was emitted!!!" << std::endl;
     std::cin.get();
     #endif
-
-    std::cout << "compiling and executing..." << std::endl;
 
     // good luck & have fun
     TCCState * tcc_state = tcc_new();
