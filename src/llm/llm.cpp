@@ -174,9 +174,9 @@ LLM::LLM() {
 
     this->smpl = llama_sampler_chain_init(llama_sampler_chain_default_params());
     llama_sampler_chain_add(smpl, llama_sampler_init_temp(1.0f));
-    llama_sampler_chain_add(smpl, llama_sampler_init_top_p(0.95, 1));
+    llama_sampler_chain_add(smpl, llama_sampler_init_top_p(0.95f, 1));
     llama_sampler_chain_add(smpl, llama_sampler_init_min_p(0.05f, 1));
-    llama_sampler_chain_add(smpl, llama_sampler_init_top_k(0.95f, 1));
+    llama_sampler_chain_add(smpl, llama_sampler_init_top_k(20));
     llama_sampler_chain_add(smpl, llama_sampler_init_dist(LLAMA_DEFAULT_SEED));
 
     this->formatted = std::vector<char>(llama_n_ctx(ctx));
