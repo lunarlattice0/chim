@@ -7,6 +7,8 @@
 #include <string>
 #include <iostream>
 
+#define SHUT_UP_LLAMA
+
 constexpr unsigned char mem_model[] = {
    #embed "../../model.gguf"
 };
@@ -129,23 +131,12 @@ std::expected<std::string, LLMFailure> LLM::prompt(const std::string input) {
 }
 
 LLM::LLM() {
-    #ifndef SHUT_UP_LLAMA
-    llama_log_set([](enum ggml_log_level level, const char * text, void *) {
-        switch (level) {
-            case GGML_LOG_LEVEL_DEBUG:
-                std::cout << "llama_cpp: " << text << std::endl;
-                break;
-            case GGML_LOG_LEVEL_WARN:
-                std::cout << "llama_cpp: " << text << std::endl;
-                break;
-            case GGML_LOG_LEVEL_ERROR:
-                std::cout << "llama_cpp: " << text << std::endl;
-                break;
-            default:
-                std::cout << "llama_cpp: " << text << std::endl;
-                break;
-        }
-    }, nullptr);
+    #ifdef SHUT_UP_LLAMA
+    llama_log_set([](ggml_log_level level, const char * text, void * user_data) {
+        (void) level;
+        (void) text;
+        (void) user_data;
+    }, NULL);
     #endif
 
     // create a FILE * from .rodata embed

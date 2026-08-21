@@ -24,3 +24,7 @@ cmake ..
 
 ## Limitations
 Unfortunately, the model you use can be a little shit and disobey the system prompt for formatting. This can break the compiler, in which case your only solution is to rerun. Nothing can be done to fix this.
+
+## Configurables
+Define SHUT_UP_LLAMA in llm.cpp to disable log output, if you like achieving CHIM without the cliff racer screeching.
+Define NO_SAFETY_CHECK in main.cpp to disable safety checks (valid C code will be executed instantly)

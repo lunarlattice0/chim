@@ -3,9 +3,6 @@
 #include <memory>
 #include <libtcc.h>
 
-#define SAFETY_CHECK 1
-#define SHUT_UP_LLAMA 1
-
 int main(int argc, char* argv[]) {
     std::string llm_prompt;
 
@@ -33,7 +30,7 @@ int main(int argc, char* argv[]) {
         gen_output.erase(0, start);
     }
 
-    #ifdef SAFETY_CHECK
+    #ifndef NO_SAFETY_CHECK
     std::cout << "!!!Generated!!!" << std::endl;
     std::cout << gen_output << std::endl;
 
@@ -50,6 +47,8 @@ int main(int argc, char* argv[]) {
 
     tcc_set_options(tcc_state, "-I/usr/include");
     tcc_set_output_type(tcc_state, TCC_OUTPUT_MEMORY);
+
+    // technically, we could send this back to the model for iterative improvement. perhaps next time.
     if (tcc_compile_string(tcc_state, gen_output.c_str()) == -1) {
         std::cerr << "Compile failed." << std::endl;
         return 1;
