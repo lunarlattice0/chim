@@ -173,8 +173,10 @@ LLM::LLM() {
         GGML_ABORT("failed to create ctx");
 
     this->smpl = llama_sampler_chain_init(llama_sampler_chain_default_params());
-    llama_sampler_chain_add(this->smpl, llama_sampler_init_min_p(0.05f, 1));
-    llama_sampler_chain_add(smpl, llama_sampler_init_temp(0.7f));
+    llama_sampler_chain_add(smpl, llama_sampler_init_temp(1.0f));
+    llama_sampler_chain_add(smpl, llama_sampler_init_top_p(0.95, 1));
+    llama_sampler_chain_add(smpl, llama_sampler_init_min_p(0.05f, 1));
+    llama_sampler_chain_add(smpl, llama_sampler_init_top_k(0.95f, 1));
     llama_sampler_chain_add(smpl, llama_sampler_init_dist(LLAMA_DEFAULT_SEED));
 
     this->formatted = std::vector<char>(llama_n_ctx(ctx));

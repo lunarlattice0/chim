@@ -52,7 +52,10 @@ int main(int argc, char* argv[]) {
 
     tcc_set_options(tcc_state, "-I/usr/include");
     tcc_set_output_type(tcc_state, TCC_OUTPUT_MEMORY);
-    tcc_compile_string(tcc_state, gen_output.c_str());
+    if (tcc_compile_string(tcc_state, gen_output.c_str()) == -1) {
+        std::cerr << "Compile failed." << std::endl;
+        return 1;
+    }
     tcc_relocate(tcc_state);
 
     int (*new_main)(int, char**) = reinterpret_cast<int (*)(int, char**)>(tcc_get_symbol(tcc_state, "main"));
