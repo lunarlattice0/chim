@@ -1,7 +1,6 @@
 #include "llm.hpp"
 #include "ggml.h"
 #include "llama.h"
-#include "boost/log/trivial.hpp"
 #include <array>
 #include <expected>
 #include <stdexcept>
