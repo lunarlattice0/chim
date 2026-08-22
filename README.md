@@ -29,3 +29,5 @@ Unfortunately, the model you use can be a little shit and disobey the system pro
 Define SHUT_UP_LLAMA in llm.cpp to disable log output.
 
 Define NO_SAFETY_CHECK in main.cpp to disable safety checks (valid C code will be executed instantly).
+
+Define ITERATIVE_MODE in main.cpp to repeatedly prompt the LLM for better results (until compilable code is acquired).
